@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Scroller</title>
+</head>
+<body>
+
+<input type="text" id="messageInput" style="width: 300px;"><br>
+<button onclick="startScroll()">Iniciar</button>
+<button onclick="stopScroll()">Parar</button>
+
+<script>
+let message = "Mensagem a rolar"; // Mensagem inicial
+let intervalId = null; // Variável para armazenar o ID do intervalo
+
+function scrollMessage() {
+    // Extrair o primeiro caractere da mensagem
+    let firstChar = message.substring(0, 1);
+    // Remover o primeiro caractere da mensagem
+    let remainingChars = message.substring(1);
+    // Adicionar o primeiro caractere ao final da mensagem
+    message = remainingChars + firstChar;
+    // Atualizar o valor do campo de texto
+    document.getElementById("messageInput").value = message;
+}
+
+function startScroll() {
+    // Verificar se já há um intervalo em andamento para evitar múltiplas execuções
+    if (intervalId === null) {
+        // Iniciar o intervalo que chama scrollMessage a cada 200 milissegundos
+        intervalId = setInterval(scrollMessage, 200);
+    }
+}
+
+function stopScroll() {
+    // Parar o intervalo, se estiver em execução
+    if (intervalId !== null) {
+        clearInterval(intervalId);
+        intervalId = null; // Redefinir o intervalId para null para indicar que o intervalo foi parado
+    }
+}
+</script>
+
+</body>
+</html>
